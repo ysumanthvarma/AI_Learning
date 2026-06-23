@@ -37,125 +37,125 @@ Recommended pace: 1.5 hours/day.
 
 ## 100-Day Plan
 
-### Day 1: Define the AI SRE Assistant Product Goal
-- Learn: What AI can and cannot safely do for SRE workflows.
-- Build: Create a one-page product goal: users, use cases, non-goals, risks.
+### Day 1: AI for SRE Orientation and Product Goal
+- Learn: What LLMs can do for SRE, where they fail, and why citations matter.
+- Build: Create product goal with AI use cases, non-goals, and safety boundaries.
 - Output: `docs/product-goal.md`.
-- Resources: OWASP LLM Top 10, NIST AI RMF.
+- Resources: Google SRE incident management, OWASP LLM Top 10, NIST AI RMF.
 
-### Day 2: Create the Capstone Repo Structure
-- Learn: How to structure a small production-style Python service.
-- Build: Create `~/Projects/ai-sre-assistant` with app, gateway, rag, tools, policy, telemetry, evals, runbooks, dashboards, manifests, capacity, docs, tests.
-- Output: repo skeleton.
-- Resources: Python packaging guide, Git book.
+### Day 2: LLM Basics and Capstone Repo Structure
+- Learn: prompt, context window, token, model, hallucination, grounding.
+- Build: Create `~/Projects/ai-sre-assistant` repo and folder structure.
+- Output: repo skeleton plus `docs/ai-basics-for-sre.md`.
+- Resources: provider LLM basics docs, Git book.
 
-### Day 3: Create Python Virtual Environment and Tooling
-- Learn: `venv`, `pip`, dependency files, repeatable local setup.
-- Build: Add `.venv`, `requirements-dev.txt` or `pyproject.toml`.
-- Output: local Python environment.
-- Resources: Python venv docs, pytest docs.
+### Day 3: Prompting for SRE and Python Environment
+- Learn: how to write a constrained SRE prompt with role, task, context, and refusal rules.
+- Build: Create Python environment and first prompt file.
+- Output: `.venv`, dependency file, `app/prompts/runbook_qa_v0.md`.
+- Resources: Python venv docs, OWASP LLM Top 10.
 
-### Day 4: Build FastAPI Skeleton
-- Learn: FastAPI app, routes, JSON responses.
-- Build: Add `app/main.py` and start the API locally.
-- Output: running API service.
-- Resources: FastAPI tutorial.
+### Day 4: First Stubbed AI Response with FastAPI
+- Learn: why to stub model behavior before calling real providers.
+- Build: FastAPI skeleton plus `POST /ask` returning a stubbed SRE answer.
+- Output: running app with first AI-shaped endpoint.
+- Resources: FastAPI tutorial, Pydantic docs.
 
-### Day 5: Add `/health`
-- Learn: Health endpoint purpose.
-- Build: Return service status and request ID.
-- Output: `GET /health`.
-- Resources: Kubernetes liveness probe docs.
+### Day 5: Hallucination Control and `/health`
+- Learn: hallucination, unsupported answers, and "say unknown" behavior.
+- Build: Add `/health` and an unknown response contract for `/ask`.
+- Output: liveness endpoint plus safe unknown pattern.
+- Resources: Kubernetes liveness probes, OWASP LLM Top 10.
 
-### Day 6: Add `/ready`
-- Learn: Readiness vs liveness.
-- Build: Return dependency readiness for model provider, vector store, tool router.
-- Output: `GET /ready`.
-- Resources: Kubernetes readiness probe docs.
+### Day 6: Readiness and AI Dependency Thinking
+- Learn: readiness for AI systems: model provider, vector store, tool router, corpus.
+- Build: Add `/ready` with stubbed AI dependency states.
+- Output: readiness endpoint that names AI dependencies.
+- Resources: Kubernetes readiness probes, OpenTelemetry concepts.
 
-### Day 7: Add `/version`
-- Learn: Why AI systems need app, model, prompt, corpus, and eval versions.
-- Build: Return version metadata.
-- Output: `GET /version`.
-- Resources: OpenTelemetry resource concepts.
+### Day 7: AI Version Metadata and `/version`
+- Learn: model version, prompt version, corpus version, embedding version, eval version.
+- Build: Add `/version` with app and AI metadata.
+- Output: version endpoint ready for AI rollback thinking.
+- Resources: OpenTelemetry resource concepts, semantic versioning.
 
-### Day 8: Add Request ID and Trace ID Handling
-- Learn: Correlation IDs in incident debugging.
+### Day 8: Request IDs, Trace IDs, and AI Debuggability
+- Learn: how to debug a bad AI answer using request ID, prompt version, corpus version.
 - Build: Middleware for request ID and trace ID.
-- Output: response headers and JSON request ID.
-- Resources: OpenTelemetry concepts.
+- Output: correlated responses and logs.
+- Resources: OpenTelemetry traces, FastAPI middleware.
 
-### Day 9: Add API Tests
-- Learn: Testing FastAPI endpoints.
-- Build: Tests for `/health`, `/ready`, `/version`.
+### Day 9: Testing AI Contracts Early
+- Learn: tests for AI response shape, unknown behavior, and endpoint contracts.
+- Build: Tests for `/health`, `/ready`, `/version`, `/ask`.
 - Output: passing pytest suite.
 - Resources: FastAPI testing, pytest docs.
 
-### Day 10: Week 1 Foundation Review
-- Learn: How to demo a small platform increment.
-- Build: README, architecture note, ADR for control-plane-first design.
+### Day 10: Foundation and AI Behavior Review
+- Learn: how to demo a small AI platform increment honestly.
+- Build: README, architecture note, ADR, demo script showing stubbed AI and known gaps.
 - Output: Week 1 demo script.
 - Resources: Git book, FastAPI docs.
 
-### Day 11: Create Sample Runbook Corpus
-- Learn: What makes a runbook useful to AI retrieval.
-- Build: Add 5 sample runbooks for common SRE issues.
+### Day 11: Runbooks as AI Grounding Data
+- Learn: why AI needs operational source documents and citations.
+- Build: Add 5 runbooks for common SRE issues.
 - Output: `runbooks/*.md`.
-- Resources: your team runbooks, Kubernetes troubleshooting docs.
+- Resources: Google SRE troubleshooting, Kubernetes troubleshooting.
 
-### Day 12: Create Sample Alert Documents
-- Learn: Alarm metadata: severity, query, owner, service, runbook.
-- Build: Add alert docs or YAML examples.
+### Day 12: Alerts as Untrusted AI Input
+- Learn: alert metadata and why alert text can be prompt-injection input.
+- Build: Add alert documents with severity, owner, service, runbook, and sample unsafe text.
 - Output: `runbooks/alerts/*.md` or `.yaml`.
-- Resources: Prometheus alerting docs.
+- Resources: Prometheus alerting, OWASP LLM Top 10.
 
-### Day 13: Create Sample Incident Timeline Documents
-- Learn: Incident timeline structure.
-- Build: Add 3 realistic incident timelines.
+### Day 13: Incident Timelines for AI Summaries
+- Learn: fact vs hypothesis vs root cause in incident summaries.
+- Build: Add 3 incident timelines for future AI summarization.
 - Output: `runbooks/incidents/*.md`.
-- Resources: Google SRE incident management chapters, internal incident notes if allowed.
+- Resources: Google SRE incident management, postmortem guides.
 
-### Day 14: Create Service Metadata Files
-- Learn: Service ownership, dependencies, dashboards, runbooks.
-- Build: Add `services/*.yaml`.
+### Day 14: Service Metadata for AI Context
+- Learn: service ownership, dependencies, dashboards, runbooks, escalation.
+- Build: Add service metadata YAML and a prompt note explaining how AI should use metadata.
 - Output: service catalog seed.
-- Resources: Backstage service catalog concepts, Kubernetes labels docs.
+- Resources: Backstage catalog concepts, Kubernetes labels.
 
-### Day 15: Build Corpus Loader
-- Learn: Reading local docs safely.
+### Day 15: Corpus Loader and AI Source Boundaries
+- Learn: raw documents are data, not instructions.
 - Build: Python loader for runbooks, alerts, incidents, services.
-- Output: parsed document list.
+- Output: parsed document list with document type metadata.
 - Resources: pathlib docs, Pydantic docs.
 
-### Day 16: Add Document Chunking
-- Learn: Why chunk size matters for retrieval.
+### Day 16: Chunking and Context Window Limits
+- Learn: why context windows force chunking and retrieval.
 - Build: Split docs into chunks with metadata.
 - Output: chunked corpus JSON.
-- Resources: LangChain text splitter concepts or LlamaIndex chunking docs.
+- Resources: LangChain/LlamaIndex chunking concepts.
 
-### Day 17: Add Corpus Version Metadata
-- Learn: Why retrieval answers need corpus versions.
-- Build: Generate corpus hash/version.
-- Output: `corpus_version` in `/version`.
+### Day 17: Corpus Versioning for AI Reproducibility
+- Learn: corpus changes can change answers.
+- Build: Generate corpus hash/version and expose it in `/version`.
+- Output: corpus version metadata.
 - Resources: Python hashlib docs.
 
-### Day 18: Add Citation Data Model
-- Learn: Source citation requirements.
-- Build: Models for source file, title, section, line/chunk ID.
+### Day 18: Citations and Grounded AI Responses
+- Learn: grounded answer structure: answer, citations, unknown reason, source metadata.
+- Build: Citation and answer response models.
 - Output: citation schema.
-- Resources: Pydantic docs.
+- Resources: Pydantic docs, OWASP LLM Top 10.
 
-### Day 19: Add Unknown-When-Unsupported Contract
-- Learn: Why AI assistants must say unknown.
-- Build: Response contract with answer, citations, confidence, unknown reason.
-- Output: answer response schema.
+### Day 19: Prompt Injection and Unknown Behavior
+- Learn: prompt injection from retrieved docs/logs/alerts and safe refusal behavior.
+- Build: Tests for unsupported questions and injected source text.
+- Output: unknown and prompt-injection contract tests.
 - Resources: OWASP LLM Top 10.
 
-### Day 20: Corpus Seed Capstone
-- Learn: Review corpus quality.
-- Build: Demo corpus loading, chunking, and versioning.
-- Output: corpus seed report.
-- Resources: all Week 2 resources.
+### Day 20: AI Grounding Foundation Capstone
+- Learn: review corpus quality, safe answer contract, citations, and versioning.
+- Build: Demo stubbed AI answering only from prepared context and saying unknown otherwise.
+- Output: grounding foundation report.
+- Resources: all Days 1-19 resources.
 
 ### Day 21: Add Hosted LLM Client Wrapper
 - Learn: Why model calls need a wrapper, not direct calls everywhere.
@@ -654,531 +654,366 @@ Recommended pace: 1.5 hours/day.
 
 Use this section when doing the work day by day. The earlier 100-day list is the roadmap; this section tells you exactly how to spend the session.
 
-### Day 1 Detailed: Define the AI SRE Assistant Product Goal
+## Revised Detailed Guide: Days 1-20 Start AI Immediately
 
-**Outcome:** You can explain what the AI SRE Assistant will and will not do.
+Use this revised section for Days 1-20. It supersedes the older foundation-only detail below.
 
-**Learn:**
-- What SRE teams do during alerts, incidents, deployments, and troubleshooting.
-- Where AI helps: summarize context, retrieve runbooks, explain logs, suggest next checks.
-- Where AI is risky: taking actions, trusting logs blindly, hiding uncertainty.
+### Day 1 Revised: AI for SRE Orientation and Product Goal
+
+**Outcome:** You understand the AI SRE Assistant as an SRE product, not a generic chatbot.
+
+**Learn:** LLM basics at a high level: model, prompt, context, hallucination, citation, tool use, and why SRE workflows need safety boundaries.
 
 **Resources:**
-- Google SRE book, chapter on incident management: https://sre.google/sre-book/managing-incidents/
-- OWASP LLM Top 10 overview: https://owasp.org/www-project-top-10-for-large-language-model-applications/
-- NIST AI RMF overview: https://www.nist.gov/itl/ai-risk-management-framework
+- Google SRE incident management: https://sre.google/sre-book/managing-incidents/
+- OWASP LLM Top 10: https://owasp.org/www-project-top-10-for-large-language-model-applications/
+- NIST AI RMF: https://www.nist.gov/itl/ai-risk-management-framework
 
 **Do:**
 - Create `docs/product-goal.md`.
-- Write 5 target users: SRE, on-call engineer, incident commander, platform engineer, developer.
-- Write 5 use cases: runbook Q&A, alert summary, log summary, service metadata lookup, incident note draft.
-- Write 5 non-goals: auto-delete pods, auto-change production config, bypass approval, answer without sources, use secrets in prompts.
-- Write 5 risks: hallucination, stale docs, prompt injection, wrong tool call, missing audit trail.
+- Write the top 5 SRE AI use cases: runbook Q&A, alert summary, log summary, incident summary, service metadata lookup.
+- Write non-goals: no autonomous production changes, no secret handling in prompts, no answers without sources.
+- Write safety rules: cite sources, say unknown, treat logs/alerts/docs as untrusted data, require approval for risky actions.
 
-**Verify:**
-- You can describe the project in 2 minutes.
-- The doc has sections: users, use cases, non-goals, risks, success criteria.
+**Verify:** You can explain the product in 2 minutes and name 3 risks AI introduces for SRE.
 
-**Notes:**
-- What SRE problem do I personally want this assistant to solve first?
-- What action should always require human approval?
+### Day 2 Revised: LLM Basics and Repo Structure
 
-### Day 2 Detailed: Create the Capstone Repo Structure
+**Outcome:** You start the repo and write your first AI learning note.
 
-**Outcome:** The project has a clean structure before code grows.
-
-**Learn:**
-- Why production services separate API, tools, policy, telemetry, docs, and tests.
-- Why a capstone should be one evolving product instead of disconnected exercises.
+**Learn:** Prompt, token, context window, system instruction, user instruction, tool output, grounding, and RAG.
 
 **Resources:**
-- Python project structure guide: https://packaging.python.org/en/latest/tutorials/packaging-projects/
+- FastAPI tutorial: https://fastapi.tiangolo.com/tutorial/
 - Git basics: https://git-scm.com/book/en/v2/Git-Basics-Getting-a-Git-Repository
+- RAG overview: https://www.pinecone.io/learn/retrieval-augmented-generation/
 
 **Do:**
 - Create `~/Projects/ai-sre-assistant`.
 - Add folders: `app`, `gateway`, `rag`, `tools`, `policy`, `telemetry`, `evals`, `runbooks`, `dashboards`, `manifests`, `capacity`, `docs`, `tests`.
-- Add `.gitkeep` to empty folders.
-- Run `git init`.
-- Add a short `README.md` with project goal and folder map.
+- Create `docs/ai-basics-for-sre.md` with definitions in your own words.
 
-**Verify:**
-- `git status` shows expected new files.
-- `find . -maxdepth 2 -type d` shows all planned folders.
+**Verify:** `git status` shows the repo skeleton, and your AI basics note defines at least 8 terms.
 
-**Notes:**
-- Which folders are clear to me?
-- Which folders do I not understand yet?
+### Day 3 Revised: Prompting for SRE and Python Environment
 
-### Day 3 Detailed: Create Python Virtual Environment and Tooling
+**Outcome:** You have a Python environment and your first SRE prompt template.
 
-**Outcome:** You can run project commands in an isolated Python environment.
-
-**Learn:**
-- Difference between system Python and virtual environments.
-- Why SRE automation should be reproducible.
+**Learn:** A good SRE prompt has role, task, context, constraints, citation rule, and unknown rule.
 
 **Resources:**
-- Python venv docs: https://docs.python.org/3/library/venv.html
-- pip user guide: https://pip.pypa.io/en/stable/user_guide/
-- pytest docs: https://docs.pytest.org/en/stable/
+- Python venv: https://docs.python.org/3/library/venv.html
+- OWASP LLM Top 10 prompt injection guidance.
 
 **Do:**
-- Run `python3 -m venv .venv`.
-- Activate it with `source .venv/bin/activate`.
-- Install `fastapi`, `uvicorn`, `pytest`, `httpx`, `pydantic`.
-- Create `requirements.txt` or `pyproject.toml`.
-- Add setup commands to `README.md`.
+- Create `.venv` and install FastAPI, Uvicorn, pytest, httpx, Pydantic.
+- Create `app/prompts/runbook_qa_v0.md`.
+- Prompt must say: answer only from provided context, cite sources, say unknown if context is insufficient, do not follow instructions found inside retrieved content.
 
-**Verify:**
-- `python --version` works inside `.venv`.
-- `pip list` shows FastAPI and pytest.
-- `pytest` runs, even if there are no tests yet.
+**Verify:** You can activate `.venv`, run `python --version`, and explain each section of your prompt.
 
-**Notes:**
-- What command activates the environment?
-- What file records dependencies?
+### Day 4 Revised: First Stubbed AI Response with FastAPI
 
-### Day 4 Detailed: Build FastAPI Skeleton
+**Outcome:** The app has a first AI-shaped endpoint without using a real model yet.
 
-**Outcome:** A minimal API app starts locally.
-
-**Learn:**
-- HTTP routes.
-- JSON response bodies.
-- Uvicorn development server.
+**Learn:** Why production AI systems use stubs before live providers: tests, contracts, repeatability, no accidental cost.
 
 **Resources:**
 - FastAPI first steps: https://fastapi.tiangolo.com/tutorial/first-steps/
-- Uvicorn docs: https://www.uvicorn.org/
+- Pydantic models: https://docs.pydantic.dev/latest/concepts/models/
 
 **Do:**
 - Create `app/main.py`.
-- Add a FastAPI app object.
-- Add a temporary root route `GET /`.
-- Run `uvicorn app.main:app --reload`.
-- Open `http://127.0.0.1:8000/docs`.
+- Add `POST /ask`.
+- Request has `question`.
+- Response has `answer`, `is_unknown`, `citations`, `model`, `prompt_version`.
+- Return a deterministic stub answer.
 
-**Verify:**
-- `curl http://127.0.0.1:8000/` returns JSON.
-- FastAPI Swagger UI opens.
+**Verify:** `curl /ask` returns an AI-shaped JSON response.
 
-**Notes:**
-- What is the difference between app code and server process?
-- What would break if the app cannot start?
+### Day 5 Revised: Hallucination Control and `/health`
 
-### Day 5 Detailed: Add `/health`
+**Outcome:** The app has liveness plus a formal unknown answer pattern.
 
-**Outcome:** The service has a liveness endpoint.
-
-**Learn:**
-- Liveness check meaning: is the process alive?
-- Why Kubernetes and load balancers use health endpoints.
+**Learn:** Hallucination is when the model produces unsupported claims. For SRE, unsupported confidence is dangerous.
 
 **Resources:**
 - Kubernetes liveness probes: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/
-- FastAPI path operation docs: https://fastapi.tiangolo.com/tutorial/path-params/
+- OWASP LLM Top 10 overreliance guidance.
 
 **Do:**
 - Add `GET /health`.
-- Return `status`, `service`, and `request_id`.
-- Keep it simple: no dependency checks in `/health`.
+- Add unknown answer fields to `/ask`: `is_unknown`, `unknown_reason`.
+- Make unsupported questions return unknown in stub mode.
 
-**Verify:**
-- `curl -s http://127.0.0.1:8000/health` returns `status: ok`.
-- Endpoint still works if model/vector dependencies are absent.
+**Verify:** `/health` returns ok, and an unsupported `/ask` question returns `is_unknown: true`.
 
-**Notes:**
-- What should `/health` never check?
-- What would an on-call engineer expect from this endpoint?
+### Day 6 Revised: Readiness and AI Dependencies
 
-### Day 6 Detailed: Add `/ready`
+**Outcome:** The app exposes readiness for AI-specific dependencies.
 
-**Outcome:** The service has a readiness endpoint with dependency states.
-
-**Learn:**
-- Readiness check meaning: can the app serve real traffic?
-- Difference between process health and dependency readiness.
+**Learn:** AI readiness includes model provider, vector store, tool router, corpus, policy layer, and eval config.
 
 **Resources:**
-- Kubernetes readiness probes: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/
-- FastAPI response model basics: https://fastapi.tiangolo.com/tutorial/response-model/
+- Kubernetes readiness probes.
+- OpenTelemetry concepts: https://opentelemetry.io/docs/concepts/
 
 **Do:**
 - Add `GET /ready`.
-- Include dependencies: `model_provider`, `vector_store`, `tool_router`.
-- Use initial states: `stubbed`, `not_configured`, `not_configured`.
+- Include dependency states: model provider stubbed, vector store not configured, corpus missing/seeded, tool router not configured, policy stubbed.
 
-**Verify:**
-- `curl -s http://127.0.0.1:8000/ready` returns dependency statuses.
-- Response is explicit about what is stubbed.
+**Verify:** `/ready` makes it obvious which AI components are real and which are stubbed.
 
-**Notes:**
-- Which future dependency could make readiness fail?
-- Should readiness fail if RAG corpus is missing?
+### Day 7 Revised: AI Version Metadata and `/version`
 
-### Day 7 Detailed: Add `/version`
+**Outcome:** You track app and AI release metadata from the start.
 
-**Outcome:** The service exposes AI-specific version metadata.
-
-**Learn:**
-- AI systems need more than app version.
-- Track prompt, model, embedding, corpus, and eval versions for rollback.
+**Learn:** AI behavior changes when app code, model, prompt, corpus, embedding model, or eval set changes.
 
 **Resources:**
-- OpenTelemetry resource concepts: https://opentelemetry.io/docs/concepts/resources/
 - Semantic versioning: https://semver.org/
+- OpenTelemetry resource concepts.
 
 **Do:**
-- Create `app/version.py`.
-- Add constants for app version, git SHA placeholder, model provider, model name, prompt version, corpus version, eval set version.
 - Add `GET /version`.
+- Include app version, git SHA placeholder, model provider, model name, prompt version, corpus version, embedding version, eval set version.
 
-**Verify:**
-- `/version` returns app and AI metadata.
-- README explains why these versions matter.
+**Verify:** `/version` answers: "What AI behavior version am I using?"
 
-**Notes:**
-- Which version would change when runbooks change?
-- Which version would change when the prompt changes?
+### Day 8 Revised: Request IDs, Trace IDs, and AI Debuggability
 
-### Day 8 Detailed: Add Request ID and Trace ID Handling
+**Outcome:** You can correlate an AI response to logs and metadata.
 
-**Outcome:** Every response can be correlated in logs and tests.
-
-**Learn:**
-- Request ID vs trace ID.
-- Why correlation IDs matter during incidents.
+**Learn:** Debugging bad AI answers requires request ID, trace ID, prompt version, model version, corpus version, and tool decisions.
 
 **Resources:**
-- OpenTelemetry traces overview: https://opentelemetry.io/docs/concepts/signals/traces/
 - FastAPI middleware: https://fastapi.tiangolo.com/tutorial/middleware/
+- OpenTelemetry traces: https://opentelemetry.io/docs/concepts/signals/traces/
 
 **Do:**
-- Create `gateway/request_context.py`.
-- Add middleware that reads `X-Request-ID` or generates one.
-- Add `X-Request-ID` to response headers.
-- Include request ID in JSON responses.
+- Add request ID middleware.
+- Accept `X-Request-ID` or generate one.
+- Return request ID in headers and response body.
 
-**Verify:**
-- A request with `X-Request-ID: test-123` returns the same ID.
-- A request without the header gets a generated ID.
+**Verify:** A supplied `X-Request-ID` appears in the response.
 
-**Notes:**
-- How would this help debug a failed AI answer?
-- Where should request ID appear later: logs, metrics, audit?
+### Day 9 Revised: Test AI Contracts Early
 
-### Day 9 Detailed: Add API Tests
+**Outcome:** AI response shape and safety behavior are tested before real models.
 
-**Outcome:** The core endpoints have regression tests.
-
-**Learn:**
-- API testing with FastAPI `TestClient`.
-- Why tests are part of production readiness.
+**Learn:** AI tests should verify contracts: citations required, unknown behavior, metadata present, no traceback leakage.
 
 **Resources:**
 - FastAPI testing: https://fastapi.tiangolo.com/tutorial/testing/
-- pytest getting started: https://docs.pytest.org/en/stable/getting-started.html
+- pytest: https://docs.pytest.org/en/stable/
 
 **Do:**
-- Create `tests/test_health.py`.
-- Test `/health`, `/ready`, `/version`.
+- Add tests for `/health`, `/ready`, `/version`, `/ask`.
+- Test unknown behavior.
 - Test request ID propagation.
-- Add test command to README.
 
-**Verify:**
-- `pytest -v` passes.
-- If you intentionally break `/health`, the test fails.
+**Verify:** `pytest -v` passes and fails if you remove AI metadata from `/ask`.
 
-**Notes:**
-- Which endpoint has the most important contract?
-- What test should be added before touching AI behavior?
+### Day 10 Revised: Foundation and AI Behavior Review
 
-### Day 10 Detailed: Foundation Review
+**Outcome:** You can demo a small AI platform foundation honestly.
 
-**Outcome:** You can demo the Week 1 skeleton.
-
-**Learn:**
-- How to show a small technical demo: goal, architecture, live behavior, tests, gaps.
-- Why known gaps are a sign of engineering discipline.
+**Learn:** A good AI demo shows behavior, evidence, and known gaps.
 
 **Resources:**
-- Git status and commits: https://git-scm.com/book/en/v2/Git-Basics-Recording-Changes-to-the-Repository
-- FastAPI docs UI: https://fastapi.tiangolo.com/features/
+- Git commit basics.
+- FastAPI docs UI.
 
 **Do:**
 - Create `docs/week-01-demo-script.md`.
 - Create `docs/architecture-v0.1.md`.
 - Create `docs/adr-0001-control-plane-first.md`.
-- Run app and tests.
-- Commit the Week 1 skeleton if ready.
+- Demo stubbed `/ask`, unknown behavior, `/version`, and tests.
 
-**Verify:**
-- Demo script includes: README, repo structure, `/health`, `/ready`, `/version`, request ID, tests, known gaps.
-- `git status` is clean after commit, or you know why not.
+**Verify:** Demo script clearly says no real model, no RAG, and no tools yet.
 
-**Notes:**
-- What works now?
-- What is intentionally stubbed?
-- What should Day 11 add?
+### Day 11 Revised: Runbooks as AI Grounding Data
 
-### Day 11 Detailed: Create Sample Runbook Corpus
+**Outcome:** You create source documents the AI will later cite.
 
-**Outcome:** The assistant has realistic source documents to retrieve from later.
-
-**Learn:**
-- Runbooks should describe symptoms, checks, decision points, and escalation.
-- Good AI retrieval depends on good source documents.
+**Learn:** Grounding means answers come from provided source context, not model memory.
 
 **Resources:**
 - Google SRE troubleshooting: https://sre.google/sre-book/effective-troubleshooting/
-- Kubernetes troubleshooting: https://kubernetes.io/docs/tasks/debug/
+- Kubernetes debugging: https://kubernetes.io/docs/tasks/debug/
 
 **Do:**
-- Create `runbooks/`.
 - Add 5 runbooks: pod crashloop, high latency, database connection failure, alert storm, deployment rollback.
-- Use consistent headings: symptoms, impact, first checks, commands, escalation, rollback.
+- Each runbook includes symptoms, checks, commands, escalation, rollback.
 
-**Verify:**
-- Each runbook has at least one command, one expected signal, and one escalation rule.
-- README links to the runbook folder.
+**Verify:** Every runbook has at least one command and one escalation rule.
 
-**Notes:**
-- Which runbook resembles your real SRE work?
-- Which runbook is vague and needs improvement?
+### Day 12 Revised: Alerts as Untrusted AI Input
 
-### Day 12 Detailed: Create Sample Alert Documents
+**Outcome:** Alert examples are useful for AI summaries and safety tests.
 
-**Outcome:** The assistant has alert metadata to summarize and connect to runbooks.
-
-**Learn:**
-- Alerts need severity, owner, service, signal, threshold, and runbook link.
-- Bad alerts create noise; good alerts drive action.
+**Learn:** Alert text can contain malicious or misleading instructions, so it must be treated as data.
 
 **Resources:**
-- Prometheus alerting overview: https://prometheus.io/docs/alerting/latest/overview/
-- Google SRE alerting philosophy: https://sre.google/sre-book/monitoring-distributed-systems/
+- Prometheus alerting: https://prometheus.io/docs/alerting/latest/overview/
+- OWASP LLM Top 10 prompt injection.
 
 **Do:**
-- Create `runbooks/alerts/`.
-- Add alert YAML or markdown for: high latency, high error rate, pod restart loop, database unavailable, queue backlog.
-- Link each alert to a runbook.
+- Add alert docs for high latency, high error rate, pod restarts, DB unavailable, queue backlog.
+- Add one sample alert containing malicious text for future prompt-injection tests.
 
-**Verify:**
-- Each alert has severity and owner.
-- Each alert has a runbook reference.
+**Verify:** Each alert has severity, service, owner, signal, and runbook link.
 
-**Notes:**
-- Which alerts are actionable?
-- Which alerts might create noise?
+### Day 13 Revised: Incident Timelines for AI Summaries
 
-### Day 13 Detailed: Create Sample Incident Timeline Documents
+**Outcome:** You create realistic incident context for future summarization.
 
-**Outcome:** The assistant can later summarize incident history.
-
-**Learn:**
-- Incident timelines capture facts, not guesses.
-- AI summaries should preserve uncertainty and cite source events.
+**Learn:** AI summaries must separate facts, hypotheses, actions, and unknowns.
 
 **Resources:**
-- Google SRE incident management: https://sre.google/sre-book/managing-incidents/
-- Atlassian incident postmortem guide: https://www.atlassian.com/incident-management/postmortem
+- Google SRE incident management.
+- Atlassian postmortem guide.
 
 **Do:**
-- Create `runbooks/incidents/`.
-- Add 3 incident timelines: latency spike, failed deployment, database outage.
-- Include timestamps, observed symptoms, actions taken, owners, outcome.
+- Add 3 incident timelines with timestamps, symptoms, actions, owners, outcomes.
+- Include at least one unresolved question in each incident.
 
-**Verify:**
-- Each timeline has at least 8 timestamped events.
-- Each action has an actor and result.
+**Verify:** Each incident has at least 8 timestamped events.
 
-**Notes:**
-- What should AI summarize?
-- What should AI avoid inventing?
+### Day 14 Revised: Service Metadata for AI Context
 
-### Day 14 Detailed: Create Service Metadata Files
+**Outcome:** The assistant can later connect alerts and runbooks to ownership and dependencies.
 
-**Outcome:** The assistant has a simple service catalog.
-
-**Learn:**
-- Service metadata helps connect alerts, logs, runbooks, teams, dashboards, and dependencies.
-- SRE tools work better when service ownership is explicit.
+**Learn:** AI context should include service owner, tier, dependencies, dashboards, runbooks, and escalation.
 
 **Resources:**
-- Backstage system model: https://backstage.io/docs/features/software-catalog/system-model/
-- Kubernetes recommended labels: https://kubernetes.io/docs/concepts/overview/working-with-objects/common-labels/
+- Backstage catalog model: https://backstage.io/docs/features/software-catalog/system-model/
+- Kubernetes recommended labels.
 
 **Do:**
-- Create `runbooks/services/`.
-- Add YAML for 5 services.
-- Include service name, owner, tier, dependencies, dashboards, runbooks, alerts.
+- Add service metadata YAML for 5 services.
+- Create `docs/how-ai-uses-service-metadata.md`.
 
-**Verify:**
-- Every alert maps to a service.
-- Every service maps to at least one runbook.
+**Verify:** Every service links to at least one runbook and one alert.
 
-**Notes:**
-- Which metadata would an on-call engineer need first?
-- What metadata must not contain secrets?
+### Day 15 Revised: Corpus Loader and Source Boundaries
 
-### Day 15 Detailed: Build Corpus Loader
+**Outcome:** Python can load operational documents as typed source data.
 
-**Outcome:** Python can load your operational corpus.
-
-**Learn:**
-- File IO with `pathlib`.
-- Separating raw files from parsed document objects.
+**Learn:** Retrieved docs are source data, not instructions. This boundary matters for prompt injection.
 
 **Resources:**
 - pathlib docs: https://docs.python.org/3/library/pathlib.html
-- Pydantic models: https://docs.pydantic.dev/latest/concepts/models/
+- Pydantic models.
 
 **Do:**
 - Create `rag/corpus_loader.py`.
-- Define a `CorpusDocument` model.
-- Load markdown and YAML files from `runbooks/`.
-- Capture path, title, type, content.
+- Load runbooks, alerts, incidents, and services.
+- Track document type, path, title, content, trust level as `untrusted_source_data`.
 
-**Verify:**
-- Add tests that load the sample corpus.
-- Test count is at least the number of files you created.
+**Verify:** Tests load all sample documents and preserve metadata.
 
-**Notes:**
-- What metadata is needed for citations later?
-- What file types should be supported first?
+### Day 16 Revised: Chunking and Context Window Limits
 
-### Day 16 Detailed: Add Document Chunking
+**Outcome:** Documents are split into model-sized chunks.
 
-**Outcome:** Long docs are split into retrievable chunks.
-
-**Learn:**
-- Why LLM context windows make chunking necessary.
-- Tradeoff: small chunks improve precision, large chunks preserve context.
+**Learn:** Context windows are limited. Chunking controls what evidence the model sees.
 
 **Resources:**
-- LangChain text splitter concepts: https://python.langchain.com/docs/concepts/text_splitters/
-- LlamaIndex chunking concepts: https://docs.llamaindex.ai/en/stable/module_guides/loading/node_parsers/
+- LangChain text splitter concepts.
+- LlamaIndex node parser concepts.
 
 **Do:**
 - Create `rag/chunker.py`.
-- Split documents by headings first, then by character limit.
-- Preserve source path and heading in chunk metadata.
+- Chunk by headings first, then size.
+- Preserve source path, heading, document type, chunk ID.
 
-**Verify:**
-- Tests show a long runbook becomes multiple chunks.
-- Each chunk has source metadata.
+**Verify:** A long runbook becomes multiple chunks with citation metadata.
 
-**Notes:**
-- What chunk size feels right for runbooks?
-- What metadata is needed to cite a chunk?
+### Day 17 Revised: Corpus Versioning for AI Reproducibility
 
-### Day 17 Detailed: Add Corpus Version Metadata
+**Outcome:** The app can identify which source corpus produced an answer.
 
-**Outcome:** The service can say which corpus version produced an answer.
-
-**Learn:**
-- Corpus changes can change AI answers.
-- Hashing gives a simple reproducibility marker.
+**Learn:** If a runbook changes, answers may change. That makes corpus version part of rollback.
 
 **Resources:**
-- hashlib docs: https://docs.python.org/3/library/hashlib.html
-- Reproducibility concept: https://sre.google/workbook/canarying-releases/
+- Python hashlib: https://docs.python.org/3/library/hashlib.html
 
 **Do:**
 - Create `rag/corpus_version.py`.
-- Hash file paths and contents.
+- Hash source file paths and contents.
 - Add corpus version to `/version`.
 
-**Verify:**
-- Changing a runbook changes the corpus hash.
-- Tests verify stable hash when files do not change.
+**Verify:** Changing a runbook changes the corpus hash.
 
-**Notes:**
-- Why is corpus version part of rollback?
-- Should generated files affect corpus version?
+### Day 18 Revised: Citations and Grounded AI Responses
 
-### Day 18 Detailed: Add Citation Data Model
+**Outcome:** The answer schema supports citation-based trust.
 
-**Outcome:** Answers can point back to source chunks.
-
-**Learn:**
-- Citations need enough detail for humans to verify.
-- Citation absence is a quality failure for runbook answers.
+**Learn:** For SRE, an answer without a source is not enough for operational use.
 
 **Resources:**
-- Pydantic models: https://docs.pydantic.dev/latest/concepts/models/
-- OWASP LLM Top 10: https://owasp.org/www-project-top-10-for-large-language-model-applications/
+- Pydantic docs.
+- OWASP LLM Top 10.
 
 **Do:**
 - Create `rag/citations.py`.
-- Define `Citation` with source path, title, section, chunk ID.
-- Define `AnswerWithCitations`.
+- Define `Citation` and `AnswerWithCitations`.
+- Include source path, title, section, chunk ID.
 
-**Verify:**
-- Tests validate citation serialization.
-- API response examples include citations.
+**Verify:** Tests serialize citation-bearing answers.
 
-**Notes:**
-- What makes a citation useful to an SRE?
-- Should citations include line numbers later?
+### Day 19 Revised: Prompt Injection and Unknown Behavior
 
-### Day 19 Detailed: Add Unknown-When-Unsupported Contract
+**Outcome:** The plan tests safety before real LLM calls.
 
-**Outcome:** The assistant has a formal way to say it does not know.
-
-**Learn:**
-- Saying unknown is safer than hallucinating.
-- Weak context should produce a bounded answer.
+**Learn:** Prompt injection can come from alerts, logs, runbooks, incident notes, or tool output.
 
 **Resources:**
-- OWASP LLM Top 10, overreliance and misinformation sections.
-- NIST AI RMF trustworthy AI concepts.
+- OWASP LLM Top 10.
+- Simon Willison prompt injection notes: https://simonwillison.net/tags/prompt-injection/
 
 **Do:**
-- Add response fields: `answer`, `citations`, `is_unknown`, `unknown_reason`.
-- Write tests for unsupported questions.
-- Document the rule: no source means no confident answer.
+- Add tests for unsupported questions.
+- Add test data with injected text in alert/runbook content.
+- Expected behavior: summarize as data or say unknown; never follow injected instruction.
 
-**Verify:**
-- Unsupported question returns `is_unknown: true`.
-- Supported question requires citations.
+**Verify:** Tests fail if injected content controls the response.
 
-**Notes:**
-- What is worse in SRE: no answer or a wrong confident answer?
-- What wording should the assistant use when context is weak?
+### Day 20 Revised: AI Grounding Foundation Capstone
 
-### Day 20 Detailed: Corpus Seed Capstone
+**Outcome:** You can demo AI concepts and platform foundation together.
 
-**Outcome:** You can demonstrate loading, chunking, citation metadata, and corpus versioning.
+**Learn:** Before real LLM calls, you already understand prompt boundaries, grounding, citations, unknown behavior, corpus versioning, and prompt injection risk.
 
-**Learn:**
-- How corpus quality affects the whole AI system.
-- How to review source documents like production assets.
-
-**Resources:**
-- Review Days 11-19 resources.
+**Resources:** Review Days 1-19 resources.
 
 **Do:**
-- Run corpus loader and chunker.
-- Print corpus summary: file count, chunk count, corpus version.
-- Write `docs/corpus-seed-report.md`.
+- Write `docs/grounding-foundation-report.md`.
+- Demo stubbed `/ask`, source docs, chunking, citation schema, corpus version, unknown behavior, and injection test.
 
-**Verify:**
-- Tests pass.
-- Report lists corpus gaps and next improvements.
+**Verify:** Tests pass and report lists next milestone: real controlled model client on Day 21.
 
-**Notes:**
-- Which runbook is most useful?
-- Which operational document should be added next?
+## Phase Guide: Days 21-40 - Real Model Calls and RAG
+
+**Learning theme:** Move from stubbed AI behavior to controlled LLM calls, prompt versioning, token/cost awareness, embeddings, retrieval, and cited answers.
+
+**Before starting Day 21, you should know:**
+- What a prompt is.
+- Why the assistant must say unknown.
+- Why source docs are untrusted data.
+- Why prompt, model, corpus, and embedding versions matter.
+
+**Main risk in this phase:** Getting excited by a working model call and forgetting controls. Keep all model calls behind wrappers, metadata, tests, and safe response contracts.
 
 ### Day 21 Detailed: Add Hosted LLM Client Wrapper
 
-**Outcome:** The app has one controlled place for model calls.
+**Outcome:** The app has one controlled place for model calls, and you understand why direct provider calls are risky.
 
 **Learn:**
 - Why production apps should not call an LLM directly from route handlers.
 - Provider wrappers make timeouts, retries, logging, and allowlists easier.
+- Difference between hosted LLM API, local model server, and stubbed model.
 
 **Resources:**
 - httpx async client docs: https://www.python-httpx.org/async/
@@ -1189,6 +1024,7 @@ Use this section when doing the work day by day. The earlier 100-day list is the
 - Create `app/model_client.py`.
 - Define a `ModelClient` interface/class with `complete(prompt, request_id)`.
 - Start with a stub implementation that returns deterministic text.
+- Optionally add a real provider implementation behind an environment flag, but keep tests on the stub.
 - Keep provider API keys out of code.
 
 **Verify:**
@@ -1435,6 +1271,7 @@ Use this section when doing the work day by day. The earlier 100-day list is the
 **Learn:**
 - Embeddings convert text into vectors for semantic search.
 - Embedding model choice affects retrieval quality.
+- Embeddings are not "understanding"; they are similarity signals that can still retrieve wrong context.
 
 **Resources:**
 - Vector embeddings overview: https://www.pinecone.io/learn/vector-embeddings/
@@ -1678,6 +1515,17 @@ Use this section when doing the work day by day. The earlier 100-day list is the
 - What answer was best?
 - What answer exposed a corpus or retrieval gap?
 
+## Phase Guide: Days 41-60 - SRE Tools, Agent Safety, and Policy
+
+**Learning theme:** Teach the assistant to use read-only operational tools safely. This is where "AI for SRE" becomes more than Q&A.
+
+**Before starting Day 41, you should know:**
+- What RAG does.
+- Why citations matter.
+- Why retrieved content and tool output are untrusted.
+
+**Main risk in this phase:** Excessive agency. The assistant may appear useful, but it must not take risky actions. Keep all tools read-only and policy checked.
+
 ### Day 41 Detailed: Design Tool-Calling Contract
 
 **Outcome:** Tool calls have a safe request/response shape before implementation.
@@ -1685,6 +1533,7 @@ Use this section when doing the work day by day. The earlier 100-day list is the
 **Learn:**
 - Tools let AI access operational data, but they also create risk.
 - SRE AI tools should be read-only by default.
+- Tool output can be wrong, stale, malformed, or malicious.
 
 **Resources:**
 - OWASP LLM Top 10 tool/agent risks: https://owasp.org/www-project-top-10-for-large-language-model-applications/
@@ -2181,6 +2030,17 @@ Use this section when doing the work day by day. The earlier 100-day list is the
 - Which safety control is strongest?
 - Which risk remains least controlled?
 
+## Phase Guide: Days 61-80 - Observability and AI Evaluation
+
+**Learning theme:** Make AI behavior measurable. Traditional service metrics are not enough; you also need quality, cost, citation, unknown, and safety metrics.
+
+**Before starting Day 61, you should know:**
+- How `/ask` works.
+- What tools are available.
+- What safety controls exist.
+
+**Main risk in this phase:** Claiming the assistant is good without evidence. Use metrics, tests, and eval reports as proof.
+
 ### Day 61 Detailed: Add Structured Application Logs
 
 **Outcome:** The service emits machine-readable logs.
@@ -2188,6 +2048,7 @@ Use this section when doing the work day by day. The earlier 100-day list is the
 **Learn:**
 - Structured logs make incident debugging and dashboards easier.
 - Logs should include request ID and event type.
+- AI logs should include model, prompt, corpus, and tool decision metadata without leaking secrets.
 
 **Resources:**
 - Python logging: https://docs.python.org/3/library/logging.html
@@ -2671,6 +2532,17 @@ Use this section when doing the work day by day. The earlier 100-day list is the
 **Notes:**
 - Which eval category is strongest?
 - Which eval category needs more examples?
+
+## Phase Guide: Days 81-100 - Deployment, Incident Drills, and Final Review
+
+**Learning theme:** Treat the AI SRE Assistant like an operable service. Package it, validate deployment manifests, run failure drills, document rollback, and present a production-readiness review.
+
+**Before starting Day 81, you should know:**
+- How to run the app and tests.
+- How to run evals.
+- Which AI failure modes the project already covers.
+
+**Main risk in this phase:** Confusing "deployable demo" with "production ready." Be explicit about what is real, what is mocked, and what would be needed for production.
 
 ### Day 81 Detailed: Create Dockerfile
 
