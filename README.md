@@ -1,4 +1,3 @@
-
 # AI for SRE 100-Day Plan
 
 ## Goal
